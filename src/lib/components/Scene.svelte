@@ -1,60 +1,31 @@
 <script lang="ts">
-  import { T, useFrame } from '@threlte/core'
+	import { Color } from 'three';
+	import { T, useThrelte } from '@threlte/core';
+	import { OrbitControls } from '@threlte/extras';
+	import Globe from './Globe.svelte';
 
-  let rotation = 0
-  useFrame(() => {
-    rotation += 0.001
-  })
+	const { scene } = useThrelte();
+
+	scene.background = new Color(0x040d21);
 </script>
 
-<T.Group rotation.y={rotation}>
-  <T.PerspectiveCamera
-    makeDefault
-    position={[-10, 10, 10]}
-    fov={15}
-    on:create={({ ref }) => {
-      ref.lookAt(0, 1, 0)
-    }}
-  />
-</T.Group>
+<T.AmbientLight args={[0xbbbbbb, 0.3]} />
 
-<!-- Floor -->
-<T.Mesh rotation.x={(90 * Math.PI) / 180}>
-  <T.CircleGeometry args={[3, 16]} />
-  <T.MeshBasicMaterial
-    color="#666666"
-    wireframe
-  />
-</T.Mesh>
+<T.PerspectiveCamera makeDefault position={[0, 0, 500]}>
+	<OrbitControls
+		autoRotate={true}
+		enableDamping={true}
+		enableZoom={true}
+		maxPolarAngle={Math.PI - Math.PI / 3}
+		minPolarAngle={Math.PI / 3.5}
+	/>
 
-<T.DirectionalLight
-  intensity={0.8}
-  position.x={5}
-  position.y={10}
-/>
-<T.AmbientLight intensity={0.2} />
+	<T.DirectionalLight args={[0xffffff, 0.8]} position={[-800, 2000, 400]} />
+	<T.DirectionalLight args={[0x7982f6, 1.0]} position={[-200, 500, 200]} />
 
-<T.Mesh
-  position.y={1.2}
-  position.z={-0.75}
->
-  <T.BoxGeometry />
-  <T.MeshStandardMaterial color="#0059BA" />
-</T.Mesh>
+	<T.PointLight args={[0x8566cc, 0.5]} position={[-200, 500, 200]} />
+</T.PerspectiveCamera>
 
-<T.Mesh
-  position={[1.2, 1.5, 0.75]}
-  rotation.x={5}
-  rotation.y={71}
->
-  <T.TorusKnotGeometry args={[0.5, 0.15, 100, 12, 2, 3]} />
-  <T.MeshStandardMaterial color="#F85122" />
-</T.Mesh>
+<T.Fog args={[0x535ef3, 400, 2000]} />
 
-<T.Mesh
-  position={[-1.4, 1.5, 0.75]}
-  rotation={[-5, 128, 10]}
->
-  <T.IcosahedronGeometry />
-  <T.MeshStandardMaterial color="#F8EBCE" />
-</T.Mesh>
+<Globe />

@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { Canvas } from '@threlte/core'
-  import Scene from './Scene.svelte'
+	import { NoToneMapping } from 'three';
+	import { Canvas } from '@threlte/core';
+	import Scene from './Scene.svelte';
 </script>
 
-<Canvas>
-  <Scene />
+<Canvas toneMapping={NoToneMapping}>
+	<Scene />
 </Canvas>
