@@ -16,7 +16,7 @@
 	scene.add(globe);
 
 	globe
-		.atmosphereAltitude(0.25)
+		.atmosphereAltitude(0.35)
 		.atmosphereColor('#3a228a')
 		.hexPolygonColor(() => 'rgba(255,255,255, 0.7)')
 		.hexPolygonMargin(0.7)
@@ -46,7 +46,7 @@
 	<T.DirectionalLight args={[0xffffff, 0.8]} position={[-800, 2000, 400]} />
 	<T.DirectionalLight args={[0x7982f6, 1.0]} position={[-200, 500, 200]} />
 
-	<T.PointLight args={[0x8566cc, 0.5]} position={[-200, 500, 200]} />
+	<T.PointLight args={[0x8566cc, 10, 0, 0]} position={[-200, 500, 200]} />
 </T.PerspectiveCamera>
 
 <T.Fog args={[0x535ef3, 400, 2000]} />
